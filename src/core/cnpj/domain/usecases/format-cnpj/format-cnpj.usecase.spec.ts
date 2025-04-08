@@ -13,4 +13,16 @@ describe("FormatCnpjUseCase", () => {
 
     expect(output).toEqual({ cnpj: "12.345.678/9012-34" });
   });
+
+  it("should not be able to format a cnpj", () => {
+    const formatCnpjUseCase = new FormatCnpjUseCase();
+
+    const input: InputFormatCnpjDto = {
+      cnpj: "123",
+    };
+
+    const output = formatCnpjUseCase.execute(input);
+
+    expect(output).toEqual({ cnpj: "123" });
+  });
 });

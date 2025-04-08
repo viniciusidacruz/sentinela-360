@@ -20,4 +20,12 @@ describe("CheckCnpjUseCase", () => {
 
     expect(output).toEqual({ isActive: true });
   });
+
+  it("should not be able to check a cnpj", async () => {
+    const checkCnpjUseCase = new CheckCnpjUseCase(MockRepository());
+
+    const output = await checkCnpjUseCase.execute({ cnpj: "123" });
+
+    expect(output).toEqual({ isActive: false });
+  });
 });

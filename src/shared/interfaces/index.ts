@@ -1,1 +1,1 @@
-export * from "./cnpj.interface";
+export * from "./cnpj.interface.d";

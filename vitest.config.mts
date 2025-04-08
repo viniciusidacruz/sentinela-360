@@ -11,5 +11,15 @@ export default defineConfig({
     coverage: {
       provider: "v8",
     },
+    exclude: [
+      "node_modules",
+      "dist",
+      "build",
+      "public",
+      "**/interfaces/**",
+      "**/constants/**",
+      "./src/shared/interfaces/**",
+      "./src/shared/constants/**",
+    ],
   },
 });

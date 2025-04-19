@@ -20,7 +20,6 @@ export const useSignUp = () => {
     defaultValues: {
       name: "",
       email: "",
-      cnpj: "",
       password: "",
       confirmPassword: "",
     },
@@ -44,12 +43,6 @@ export const useSignUp = () => {
     }
   });
 
-  const onChangeCnpj = (event: ChangeEvent<HTMLInputElement>) => {
-    const masked = formatCnpj(event.target.value);
-
-    form.setValue("cnpj", masked);
-  };
-
   const memoizedValues = useMemo(
     () => ({
       error,
@@ -61,7 +54,6 @@ export const useSignUp = () => {
   return {
     form,
     onSubmit,
-    onChangeCnpj,
     memoizedValues,
     toggleVisibilityPassword,
   };

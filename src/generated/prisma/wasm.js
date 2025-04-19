@@ -121,8 +121,15 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   name: 'name',
   email: 'email',
-  cnpj: 'cnpj',
   password: 'password',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CompanyScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  cnpj: 'cnpj',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -137,7 +144,8 @@ exports.Prisma.FeedbackScalarFieldEnum = {
   userEmail: 'userEmail',
   userPhone: 'userPhone',
   userName: 'userName',
-  userId: 'userId'
+  userId: 'userId',
+  companyId: 'companyId'
 };
 
 exports.Prisma.SortOrder = {
@@ -158,6 +166,7 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Company: 'Company',
   Feedback: 'Feedback'
 };
 

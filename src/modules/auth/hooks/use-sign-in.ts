@@ -1,16 +1,15 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useShallow } from "zustand/react/shallow";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChangeEvent, useMemo, useState } from "react";
 
 import { useStore } from "@/shared/store";
 import { ROUTES } from "@/shared/constants";
 import { signIn } from "@/modules/auth/actions";
 import { SignInSchema, signInSchema } from "@/modules/auth/schemas";
-import { formatCnpj } from "@/shared/utils/format-cnpj";
 
 export const useSignIn = () => {
   const [error, setError] = useState<string | null>(null);
@@ -26,7 +25,7 @@ export const useSignIn = () => {
 
   const form = useForm<SignInSchema>({
     defaultValues: {
-      cnpj: "",
+      email: "",
       password: "",
     },
     mode: "onBlur",
@@ -50,12 +49,6 @@ export const useSignIn = () => {
     }
   });
 
-  const onChangeCnpj = (event: ChangeEvent<HTMLInputElement>) => {
-    const masked = formatCnpj(event.target.value);
-
-    form.setValue("cnpj", masked);
-  };
-
   const memoizedValues = useMemo(
     () => ({
       error,
@@ -67,7 +60,6 @@ export const useSignIn = () => {
   return {
     form,
     onSubmit,
-    onChangeCnpj,
     memoizedValues,
     toggleVisibilityPassword,
   };

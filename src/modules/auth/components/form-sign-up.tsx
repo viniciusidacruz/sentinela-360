@@ -17,13 +17,8 @@ import { ROUTES } from "@/shared/constants";
 import { useSignUp } from "@/modules/auth/hooks";
 
 export function FormSignUp() {
-  const {
-    form,
-    onSubmit,
-    onChangeCnpj,
-    memoizedValues,
-    toggleVisibilityPassword,
-  } = useSignUp();
+  const { form, onSubmit, memoizedValues, toggleVisibilityPassword } =
+    useSignUp();
 
   return (
     <Form {...form}>
@@ -60,26 +55,6 @@ export function FormSignUp() {
                   type="email"
                   {...field}
                   placeholder="exemplo@email.com"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="cnpj"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>CNPJ</FormLabel>
-              <FormControl>
-                <Input
-                  type="text"
-                  {...field}
-                  placeholder="00.000.000/0000-00"
-                  maxLength={18}
-                  onChange={onChangeCnpj}
                 />
               </FormControl>
               <FormMessage />

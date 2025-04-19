@@ -2,10 +2,6 @@ import { act, renderHook } from "@testing-library/react";
 
 import { useSignIn } from "../use-sign-in";
 
-vi.mock("@/shared/utils/format-cnpj", () => ({
-  formatCnpj: vi.fn().mockImplementation((value) => value),
-}));
-
 vi.mock("next/navigation", () => ({
   useRouter: vi.fn(),
 }));
@@ -19,7 +15,7 @@ describe("useSignIn", () => {
     const { result } = renderHook(() => useSignIn());
 
     expect(result.current.form.getValues()).toEqual({
-      cnpj: "",
+      email: "",
       password: "",
     });
 
@@ -38,37 +34,17 @@ describe("useSignIn", () => {
     expect(result.current.memoizedValues.showPassword).toBe(true);
   });
 
-  it("should on change cnpj field", async () => {
-    const { result } = renderHook(() => useSignIn());
-
-    expect(result.current.form.getValues()).toEqual({
-      cnpj: "",
-      password: "",
-    });
-
-    await act(async () => {
-      result.current.onChangeCnpj({
-        target: { value: "1234567890" },
-      } as unknown as React.ChangeEvent<HTMLInputElement>);
-    });
-
-    expect(result.current.form.getValues()).toEqual({
-      cnpj: "1234567890",
-      password: "",
-    });
-  });
-
   it("should handle form submission", async () => {
     const { result } = renderHook(() => useSignIn());
 
     await act(async () => {
-      result.current.form.setValue("cnpj", "1234567890");
+      result.current.form.setValue("email", "exemplo@email.com");
       result.current.form.setValue("password", "password123");
       await result.current.onSubmit();
     });
 
     expect(result.current.form.getValues()).toEqual({
-      cnpj: "1234567890",
+      email: "exemplo@email.com",
       password: "password123",
     });
   });

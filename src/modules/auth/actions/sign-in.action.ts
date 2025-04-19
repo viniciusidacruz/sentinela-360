@@ -14,10 +14,13 @@ export async function signIn(formData: SignInSchema) {
     throw new Error(parsed.error.message);
   }
 
-  const { cnpj, password } = parsed.data;
+  const { email, password } = parsed.data;
 
   const user = await prisma.user.findUnique({
-    where: { cnpj },
+    where: { email },
+    include: {
+      companies: true,
+    },
   });
 
   if (!user) {

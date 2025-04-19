@@ -14,22 +14,17 @@ export async function signUp(formData: SignUpSchema): Promise<User> {
     throw new Error(parsed.error.message);
   }
 
-  const { name, email, password, cnpj, confirmPassword } = parsed.data;
+  const { name, email, password, confirmPassword } = parsed.data;
 
   if (password !== confirmPassword) {
     throw new Error("As senhas não coincidem");
   }
 
-  const [existingByCnpj, existingByEmail] = await Promise.all([
-    prisma.user.findUnique({ where: { cnpj } }),
-    prisma.user.findUnique({ where: { email } }),
-  ]);
+  const existingUser = await prisma.user.findUnique({
+    where: { email },
+  });
 
-  if (existingByCnpj) {
-    throw new Error("Usuário com este CNPJ já existe");
-  }
-
-  if (existingByEmail) {
+  if (existingUser) {
     throw new Error("Usuário com este e-mail já existe");
   }
 
@@ -40,7 +35,6 @@ export async function signUp(formData: SignUpSchema): Promise<User> {
       name,
       email,
       password: passwordHash,
-      cnpj,
     },
   });
 }

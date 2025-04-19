@@ -17,13 +17,8 @@ import { ROUTES } from "@/shared/constants";
 import { useSignIn } from "@/modules/auth/hooks";
 
 export function FormSignIn() {
-  const {
-    form,
-    onSubmit,
-    memoizedValues,
-    toggleVisibilityPassword,
-    onChangeCnpj,
-  } = useSignIn();
+  const { form, onSubmit, memoizedValues, toggleVisibilityPassword } =
+    useSignIn();
 
   return (
     <Form {...form}>
@@ -34,17 +29,15 @@ export function FormSignIn() {
 
         <FormField
           control={form.control}
-          name="cnpj"
+          name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>CNPJ</FormLabel>
+              <FormLabel>E-mail</FormLabel>
               <FormControl>
                 <Input
-                  type="text"
+                  type="email"
                   {...field}
-                  maxLength={18}
-                  placeholder="00.000.000/0000-00"
-                  onChange={onChangeCnpj}
+                  placeholder="exemplo@email.com"
                 />
               </FormControl>
               <FormMessage />

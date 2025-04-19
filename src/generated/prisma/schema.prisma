@@ -18,13 +18,25 @@ model User {
   id        String     @id @default(uuid())
   name      String
   email     String     @unique
-  cnpj      String     @unique
   password  String
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
-  feedbacks Feedback[]
+  companies Company[]  @relation("UserCompanies")
+  feedbacks Feedback[] @relation("UserFeedbacks")
 
   @@map("users")
+}
+
+model Company {
+  id        String     @id @default(uuid())
+  name      String
+  cnpj      String     @unique
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  users     User[]     @relation("UserCompanies")
+  feedbacks Feedback[] @relation("CompanyFeedbacks")
+
+  @@map("companies")
 }
 
 model Feedback {
@@ -38,8 +50,11 @@ model Feedback {
   userPhone String?
   userName  String
   userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User     @relation("UserFeedbacks", fields: [userId], references: [id], onDelete: Cascade)
+  companyId String
+  company   Company  @relation("CompanyFeedbacks", fields: [companyId], references: [id], onDelete: Cascade)
 
   @@index([userId])
+  @@index([companyId])
   @@map("feedbacks")
 }

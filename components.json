@@ -12,7 +12,7 @@
   },
   "aliases": {
     "components": "@/shared/components",
-    "utils": "@/shared/lib/tw-merge",
+    "utils": "@/shared/lib",
     "ui": "@/shared/components/external",
     "lib": "@/shared/lib",
     "hooks": "@/shared/hooks"
